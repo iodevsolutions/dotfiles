@@ -1,0 +1,2 @@
+Plug 'akinsho/toggleterm.nvim'
+
