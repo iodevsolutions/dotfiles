@@ -1,2 +1,1 @@
-Plug 'akinsho/bufferline.nvim'
-
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v1.*' }

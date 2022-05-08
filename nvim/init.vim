@@ -5,7 +5,7 @@ set encoding=UTF-8
 set nocompatible            " disable compatibility to old-time vi
 set showmatch               " show matching brackets.
 set ignorecase              " case insensitive matching
-set mouse=v                 " middle-click paste with mouse
+set mouse=a                 " allow window click, shift + mouse select
 set hlsearch                " highlight search results
 set expandtab               " converts tabs to white space
 set list
@@ -53,7 +53,8 @@ source ~/.config/nvim/plugged/lualine.vim
 source ~/.config/nvim/plugged/bufferline.vim
 source ~/.config/nvim/plugged/indentblankline.vim
 " source ~/.config/nvim/plugged/colorschemes.vim
-source ~/.config/nvim/plugged/spacevimdark.vim
+source ~/.config/nvim/plugged/gruvbox.vim
+" source ~/.config/nvim/plugged/spacevimdark.vim
 source ~/.config/nvim/plugged/commentary.vim
 source ~/.config/nvim/plugged/devicons.vim
 source ~/.config/nvim/plugged/fzf.vim
@@ -65,7 +66,7 @@ source ~/.config/nvim/plugged/lspconfig.vim
 " source ~/.config/nvim/plugged/nord.vim
 source ~/.config/nvim/plugged/toggleterm.vim
 source ~/.config/nvim/plugged/tree.vim
-source ~/.config/nvim/plugged/treesitter.vim
+" source ~/.config/nvim/plugged/treesitter.vim
 source ~/.config/nvim/plugged/vimterraform.vim
 source ~/.config/nvim/plugged/whichkey.vim
 
@@ -75,11 +76,11 @@ source ~/.config/nvim/plugged/whichkey.vim
 call plug#end()
 doautocmd User PlugLoaded
 
-" needed for lualine
+" needed for lualine (theme - gruxbox)
 lua << END
 require('lualine').setup {
   options = {
-    theme = 'dracula',
+    theme = 'gruvbox_dark',
     section_separators = { left = '', right = '' },
     component_separators = { left = '', right = '' }
   }
@@ -130,6 +131,20 @@ function _lazygit_toggle()
 end
 
 vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
+
+function _G.set_terminal_keymaps()
+  local opts = {noremap = true}
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-t>', [[<C-\><C-n>:ToggleTerm<CR>]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', 'jk', [[<C-\><C-n>]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
+end
+
+-- if you only want these mappings for toggle term use term://*toggleterm#* instead
+vim.cmd('autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()')
 EOF
 
 " needed for nvim-tree
@@ -138,35 +153,35 @@ require'nvim-tree'.setup()
 EOF
 
 " needed for nvim-treesitter
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all"
-  ensure_installed = { "c", "lua", "rust" },
+" lua <<EOF
+" require'nvim-treesitter.configs'.setup {
+"   -- A list of parser names, or "all"
+"   ensure_installed = { "c", "lua", "rust" },
 
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
+"   -- Install parsers synchronously (only applied to `ensure_installed`)
+"   sync_install = false,
 
-  -- List of parsers to ignore installing (for "all")
-  ignore_install = { "javascript" },
+"   -- List of parsers to ignore installing (for "all")
+"   ignore_install = { "javascript" },
 
-  highlight = {
-    -- `false` will disable the whole extension
-    enable = true,
+"   highlight = {
+"     -- `false` will disable the whole extension
+"     enable = true,
 
-    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-    -- the name of the parser)
-    -- list of language that will be disabled
-    disable = { "c", "rust" },
+"     -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+"     -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+"     -- the name of the parser)
+"     -- list of language that will be disabled
+"     disable = { "c", "rust" },
 
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-}
-EOF
+"     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+"     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+"     -- Using this option may slow down your editor, and you may see some duplicate highlights.
+"     -- Instead of true it can also be a list of languages
+"     additional_vim_regex_highlighting = false,
+"   },
+" }
+" EOF
 
 " needed for which-key
 lua << EOF
