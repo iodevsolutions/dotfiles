@@ -20,7 +20,7 @@ set termguicolors           " allow gui colors
 "let &t_ut=''
 set wildmode=longest,list   " get bash-like tab completions
 set laststatus=2            "
-set shell=fish              " default shell
+"set shell=fish              " default shell
 "set spell                   " enable spell checking
 set title                   "
 set hidden
