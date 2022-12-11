@@ -1,0 +1,88 @@
+# cpu_usage
+[cpu_usage]
+command=$SCRIPT_DIR/cpu_usage
+interval=10
+label=CPU 
+# COLOR_NORMAL=#000000
+COLOR_NORMAL=#568c3b
+# background=#8ec07c
+#min_width=CPU: 100.00%
+#T_WARN=50
+#T_CRIT=80
+#DECIMALS=2
+#COLOR_NORMAL=#EBDBB2
+#COLOR_WARN=#FFFC00
+#COLOR_CRIT=#FF0000
+
+# memory
+[memory]
+command=$SCRIPT_DIR/memory
+label=MEM 
+interval=30
+color=#8a8a0f
+#color=#000000
+#background=#b8bb26
+
+# volume
+# [volume]
+# command=$SCRIPT_DIR/volume
+#label=♪ 
+# label=vol: 
+# interval=once
+# signal=10
+#STEP=5%
+#MIXER=[determined automatically]
+#SCONTROL=[determined automatically]
+#NATURAL_MAPPING=0
+# color=#000000
+
+# wifi
+# [wifi]
+# command=$SCRIPT_DIR/wifi
+# label=wifi: 
+# INTERFACE=wlp4s0
+# interval=60
+# COLOR_GE80=#000000
+#COLOR_GE80=#00FF00
+#COLOR_GE60=#FFF600
+#COLOR_GE40=#FFAE00
+#COLOR_LOWR=#FF0000
+#COLOR_DOWN=#FF0000
+
+# iface
+[iface]
+command=$SCRIPT_DIR/iface
+label=NET
+#IFACE=wlan0
+#ADDRESS_FAMILY=inet6?
+color=#257fad
+#color=#000000
+interval=10
+# set this to 1 to display the name of the connected WIFI interface instead of the IP address.
+display_wifi_name=0
+#background=#fabd2f
+
+# Query my default IP address only on startup
+#[ip]
+#command=hostname -i | awk '{ print "IP:" $1 }'
+#interval=once
+#color=#000000
+
+# battery-poly
+[battery-poly]
+command=$SCRIPT_DIR/battery-poly
+label=BAT 
+interval=5
+color=#2d8f6f
+#color=#000000
+#background=#d3869b
+
+# Update time every 5 seconds
+[time]
+#command=date +%T
+#command=date +"%a %-I:%M %p"
+command=date +"%Y/%m/%d %H:%M"
+interval=5
+color=#565db1
+#color=#000000
+#background=#a2bab1
